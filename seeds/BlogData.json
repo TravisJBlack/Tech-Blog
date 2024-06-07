@@ -1,0 +1,18 @@
+[
+    {
+      "title": "Tech Blog 1 ",
+      "blog_content": "HTML",
+      "user_id": 1
+    },
+    {
+      "title": "Tech Blog 2",
+      "blog_content": "CSS",
+      "user_id": 2
+    },
+    {
+      "title": "Tech Blog 3",
+      "blog_content": "JavaScript",
+      "user_id": 3
+    }
+  ]
+  
