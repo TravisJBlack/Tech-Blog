@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Billy",
+        "comment": "Great tech post",
+        "blog_id": "1"
+    },
+    {
+        "name": "Phil",
+        "comment": "Great tech post",
+        "blog_id": "2"
+    },
+    {
+        "name": "William",
+        "comment": "Great tech post",
+        "blog_id": "2"
+    }
+]
