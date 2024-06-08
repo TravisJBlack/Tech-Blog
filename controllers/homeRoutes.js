@@ -9,7 +9,9 @@ router.get('/', async (req, res) => {
         const blog = blogData.map((blogs) => blogs.get({plain: true}))
        
         res.render('homepage', {
-            blog
+            blog,
+      logged_in: req.session.logged_in,
+
         })
     } catch (err) {
         res.status(500).json(err);
@@ -23,5 +25,9 @@ router.get('/login', async (req, res) => {
     }
     res.render('login')
 })
+
+router.get('/register', async (req, res) => {
+    res.render('register');
+});
 
 module.exports = router
