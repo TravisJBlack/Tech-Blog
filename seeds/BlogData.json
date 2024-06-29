@@ -13,6 +13,12 @@
       "title": "Tech Blog 3",
       "blog_content": "JavaScript",
       "user_id": 3
+    },
+    {
+      "title": "Tech Blog 4",
+      "blog_content": "React",
+      "user_id": 4
     }
+
   ]
   

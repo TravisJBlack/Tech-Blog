@@ -7,13 +7,15 @@
         </svg>
     </a>
 </div>
- {{#each blog}}
+ {{#each blog.blogs}}
 <div class="container mx-auto p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <a class="flex justify-between" href="#">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{this.title}}</h5>
         <p class="mb-2 tracking-tight text-gray-900 dark:text-white">Date Created: {{format_date  this.date_created}}</p>
     </a>
     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{this.blog_content}}</p>
+    
+  
 </div>
-    {{> commentsDetails}}
+   
 {{/each}}

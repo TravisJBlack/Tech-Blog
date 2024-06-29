@@ -13,7 +13,7 @@ const blogPostHandler = async (event) => {
         });
 
         if (response.ok) {
-            document.location.replace('/api/blog');
+            document.location.replace(`/blogs/:id`);
         } else {
             alert(response.statusText);
         }
