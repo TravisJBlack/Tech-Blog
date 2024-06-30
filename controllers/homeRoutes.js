@@ -33,15 +33,6 @@ router.get('/register', async (req, res) => {
     res.render('register');
 });
 
-// router.get("/logout", (req, res) => {
-//     req.logout((err) => {
-//         if (err) {
-//             return res.status(500).json({ message: "Logout failed", error: err });
-//         }
-//         res.redirect("/login");
-//     });
-// });
-
 router.get('/blogs/:id', withAuth, async (req, res) => {
     try {
         const blogData = await User.findByPk(req.session.user_id, {
@@ -69,8 +60,7 @@ router.get('/blog/:id', withAuth, async (req, res) => {
 
         const blog_id = req.params.id;
         const blog = singleBlog.get({ plain: true });
-console.log(blog.id)
-console.log(req.session)
+
         res.render('singleblog', {
             ...blog,
             blog_id,

@@ -21,15 +21,16 @@ router.post('/post', async (req, res) => {
     }
 });
 
-router.post('/newcomment', async (req, res) => {
+router.post('/', async (req, res) => {
     try {
         console.log(blog_id);
         console.log()
-        const newComment = await Comment.creat({
-            name: "travis",
+        const newComment = await Comment.create({
+            name: req.session.name,
             ...req.body,
             blog_id: "1",
         });
+        console.log(newComment)
         res.status(200).json(newComment)
     } catch (err) {
         res.status(400).json(err);

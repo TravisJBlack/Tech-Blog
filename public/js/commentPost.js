@@ -3,7 +3,7 @@ const commentHandeler = async (event) => {
     const comment = document.querySelector('#comment').value.trim();
 
     if (comment) {
-        const response = await fetch('/api/blog/newcomment', {
+        const response = await fetch('/api/blog', {
             method: 'POST',
             body: JSON.stringify( {comment} ),
             headers: { 'Content-Type': 'application/json' },
