@@ -55,17 +55,16 @@ router.get('/blogs/:id', withAuth, async (req, res) => {
 router.get('/blog/:id', withAuth, async (req, res) => {
     try {
         const singleBlog = await Blog.findByPk(req.params.id, {
-            include: [{ model: Comment }]
+            include: [{ model: Comment}]
         });
 
-        const blog_id = req.params.id;
+        
         const blog = singleBlog.get({ plain: true });
 
         res.render('singleblog', {
             ...blog,
-            blog_id,
             logged_in: req.session.logged_in,
-            id: req.session.user_id,
+            userId: req.session.user_id,
 
 
         });
