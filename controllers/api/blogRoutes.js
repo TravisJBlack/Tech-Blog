@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User, Blog, Comment } = require('../../models');
 
+//displays the bloginput page
 router.get('/post', async (req, res) => {
     res.render('blogInput', {
         logged_in: req.session.logged_in,
@@ -9,6 +10,7 @@ router.get('/post', async (req, res) => {
     )
 })
 
+//creates a new blog post and assings it to the logged in user
 router.post('/post', async (req, res) => {
     try {
         const newPost = await Blog.create({ 
@@ -21,6 +23,7 @@ router.post('/post', async (req, res) => {
     }
 });
 
+//adds a comment to the blog that the user is currently looking at 
 router.post('/comment', async (req, res) => {
     try {
         const newComment = await Comment.create({

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models/User');
 
+//creates a new user 
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -9,6 +10,10 @@ router.post("/register", async (req, res) => {
   try {
     const userData = await User.create(req.body);
 
+    if (req.body.password < 8) {
+      res.json({message: 'Please enter a password with a minimum of 8 characters!'})
+      return;
+    }
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
@@ -22,6 +27,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//logs in a old user
 router.post('/login', async (req, res) => {
     try {
       const userData = await User.findOne({ where: { email: req.body.email } });
@@ -57,6 +63,7 @@ router.post('/login', async (req, res) => {
     }
   });
 
+  //logs out all users 
   router.post("/logout", (req, res) => {
     if (req.session.logged_in) {
       req.session.destroy(() => {

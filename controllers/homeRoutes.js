@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Blog, Comment, User } = require('../models')
 const withAuth = require('../utils/auth');
 
+//displays the homepage
 router.get('/', async (req, res) => {
     try {
         const blogData = await Blog.findAll({
@@ -21,6 +22,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+//displays the login page
 router.get('/login', async (req, res) => {
     if (req.session.logged_in) {
         res.redirect('homepage');
@@ -29,10 +31,16 @@ router.get('/login', async (req, res) => {
     res.render('login')
 })
 
+//displays the register page
 router.get('/register', async (req, res) => {
+    if (req.session.logged_in) {
+        res.redirect('homepage');
+        return;
+    }
     res.render('register');
 });
 
+//displays the dashboard page 
 router.get('/blogs/:id', withAuth, async (req, res) => {
     try {
         const blogData = await User.findByPk(req.session.user_id, {
@@ -40,7 +48,6 @@ router.get('/blogs/:id', withAuth, async (req, res) => {
         });
 
         const blog = blogData.get({ plain: true })
-        console.log(blog.id);
         res.render('dashboard', {
             blog,
             logged_in: req.session.logged_in,
@@ -52,13 +59,13 @@ router.get('/blogs/:id', withAuth, async (req, res) => {
     }
 })
 
+//displays the singleblog page
 router.get('/blog/:id', withAuth, async (req, res) => {
     try {
         const singleBlog = await Blog.findByPk(req.params.id, {
-            include: [{ model: Comment}]
+            include: [{ model: Comment}, { model: User}]
         });
 
-        
         const blog = singleBlog.get({ plain: true });
 
         res.render('singleblog', {
@@ -73,6 +80,7 @@ router.get('/blog/:id', withAuth, async (req, res) => {
     }
 });
 
+//displays the updateblog page
 router.get('/blog/update/:id', withAuth, async (req, res) => {
     try {
         const singleBlog = await Blog.findByPk(req.params.id, {
@@ -82,7 +90,6 @@ router.get('/blog/update/:id', withAuth, async (req, res) => {
         const blog = singleBlog.get({ plain: true });
         const update = blog.id;
         
-        console.log(req.session);
         res.render('updateblog', {
             ...blog,
             update,
@@ -95,6 +102,7 @@ router.get('/blog/update/:id', withAuth, async (req, res) => {
     }
 });
 
+//updates a single blog
 router.put('/blog/update/:id', withAuth, async (req, res) => {
     try{
         const editBlog = await Blog.update(
@@ -114,6 +122,8 @@ router.put('/blog/update/:id', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 })
+
+//delete a single blog 
 router.delete('/blog/update/:id', withAuth, async (req, res) => {
     try {
         const blogData = await Blog.destroy({
